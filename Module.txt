@@ -1,0 +1,14 @@
+﻿Name: Cascade.ImageResizer
+AntiForgery: enabled
+Author: Dave Gardner
+Website: http://cascadepixels.com.au
+Version: 1.9.2
+OrchardVersion: 1.9.1
+Description: Dynamically resizes images using ImageResizer installed as an Http Module. Depends on ImageResizer, which must be installed separately (see http://imageresizing.net/)
+Dependencies: Orchard.Forms, Orchard.MediaProcessing
+Category: Media
+Features:
+    Cascade.ImageResizer:
+        Description: Dynamically resizes images (remember to install ImageResizer as an Http Module)
+		Dependencies: Orchard.Forms, Orchard.MediaProcessing
+		Category: Media

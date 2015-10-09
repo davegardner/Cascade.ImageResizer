@@ -1,0 +1,63 @@
+﻿@model Cascade.ImageResizer.Models.ImageResizerSettingsPart
+
+<fieldset>
+    <legend>@T("Image Resizer Settings")</legend>
+    <p>
+        These settings control appending of ImageResizer querystring paramaters to <span class="code">&lt;img src /&gt;</span>
+        tags in HTML content. <span class="code">&lt;img src /&gt;</span> tags in other places, such as templates and shapes,
+        are not affected by these settings. If you want such images to go through ImageResizer you must add the appropriate
+        querystrings in the appropriate templates.
+    </p>
+    <div>
+        @Html.LabelFor(m => m.SizeThreshold, @T("Threshold Width"))
+        @Html.EditorFor(m => m.SizeThreshold)
+        @Html.ValidationMessageFor(m => m.SizeThreshold, "*")
+        <span class="hint">@T("All images below the Threshold are doubled in size but use lower quality. Those above the Threshold are treated normally and use a higher quality. Use 0 if you want all images double-sized, use a large number (eg 10000) for all images to be normally sized. 800 is a good starting point")</span>
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.HighQuality, @T("High Quality"))
+        @Html.EditorFor(m => m.HighQuality)
+        @Html.ValidationMessageFor(m => m.HighQuality, "*")
+        <span class="hint">@T("JPEG Quality Factor for images wider than the Threshold Width")</span>
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.LowQuality, @T("LowQuality"))
+        @Html.EditorFor(m => m.LowQuality)
+        @Html.ValidationMessageFor(m => m.LowQuality, "*")
+        <span class="hint">@T("JPEG Quality Factor for images narrower than the Threshold Width")</span>
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(m => m.ConvertGif)@T("Convert GIF files?")
+        <span class="hint">@T("GIF files (.gif) will be converted to JPEG and resized only if this option is selected. Any transparency or animation in the GIF will be lost in conversion as JPEG does not support either.")</span>
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(m => m.ConvertTiff)@T("Convert BMP files?")
+        <span class="hint">@T("BMP files (.bmp) will be converted to JPEG and resized only if this option is selected.")</span>
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(m => m.ConvertPng)@T("Convert PNG files?")
+        <span class="hint">@T("PNG files will be converted to JPEG and resized only if this option is selected. Any transparent areas in the PNG will be lost in conversion as JPEG does not support transparency.")</span>
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(m => m.ConvertTiff)@T("Convert TIFF files?")
+        <span class="hint">@T("TIFF files (.tif or .tiff) will be converted to JPEG and resized only if this option is selected.")</span>
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(m => m.ConvertJpeg)@T("Resize JPEG files?")
+        <span class="hint">@T("JPEG files (.jpg or .jpeg) will be resized only if this option is selected.")</span>
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.DefaultWidth, @T("Default Width"))
+        @Html.EditorFor(m => m.DefaultWidth)
+        @Html.ValidationMessageFor(m => m.DefaultWidth, "*")
+        <span class="hint">@T("Where an image width is not specified (eg in Layouts) this is the width of the image served. Set the Default Width to match the widest image allowed by the theme.")</span>
+    </div>
+</fieldset>
