@@ -1,0 +1,47 @@
+﻿@using Orchard.ContentManagement
+@model Cascade.ImageResizer.ViewModels.ImageResizerEditorViewModel
+@{
+    Script.Require("jQuery");
+    Script.Include("/Orchard.Layouts/Scripts/Elements/Image.js");
+}
+@{
+    var contentItems = new List<ContentItem>();
+
+    if (Model.CurrentImage != null) {
+        contentItems.Add(Model.CurrentImage.ContentItem);
+    }
+}
+<fieldset>
+    <div>
+        @Display.MediaLibraryPicker(
+            Required: false,
+            Multiple: false,
+            DisplayName: T("Image Resizer").Text,
+            FieldName: Html.FieldNameFor(m => m.ImageId),
+            ContentItems: contentItems.ToArray(),
+            Hint: "",
+            PromptOnNavigate: false,
+            ShowSaveWarning: false)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Width, T("Image width"))
+        @Html.EditorFor(m=>m.Width)
+        <span class="hint">@T("The width of the image in pixels.  May be left blank")</span>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Height, T("Image height"))
+        @Html.EditorFor(m => m.Height)
+        <span class="hint">@T("The height of the image in pixels.  May be left blank")</span>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Etc, T("Other Image Resizer querystring parameters"))
+        @Html.EditorFor(m => m.Etc)
+        <span class="hint">@T("For example, scale=canvas&bgcolor=8e7193")</span>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Responsive, T("Use responsive sizing"))
+        @Html.EditorFor(m => m.Responsive)
+        <span class="hint">@T("By default resized images are responsive and the size specified is just the maximum. Unchecking this means the image will always be the size specified, even if it doesn't fit on the screen.")</span>
+    </div>
+
+</fieldset>

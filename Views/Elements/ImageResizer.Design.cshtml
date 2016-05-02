@@ -1,0 +1,24 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.DisplayManagement.Shapes
+@using Orchard.MediaLibrary.Models
+@using Cascade.ImageResizer.Extensions;
+@{
+    var tagBuilder = new OrchardTagBuilder("img");
+    var imagePart = (ImagePart)Model.ImagePart;
+    var mediaPart = imagePart != null ? imagePart.As<MediaPart>() : default(MediaPart);
+
+    int? width = Model.Width;
+    int? height = Model.Height;
+    string etc = Model.Etc;
+
+    if (mediaPart != null)
+    {
+        tagBuilder.Attributes["src"] = Url.ResizeImage(Url.Content(mediaPart.MediaUrl), width, height, etc);
+        tagBuilder.Attributes["alt"] = mediaPart.AlternateText;
+    }
+    else {
+        tagBuilder.Attributes["alt"] = T("Image not found").Text;
+    }
+}
+
+@tagBuilder.ToHtmlString(TagRenderMode.SelfClosing)

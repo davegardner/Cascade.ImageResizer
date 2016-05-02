@@ -1,7 +1,7 @@
 ﻿using Cascade.ImageResizer.Models;
 using Cascade.ImageResizer.Services;
 using Orchard.ContentManagement;
-using Orchard.ContentManagement.Utilities;
+using Orchard.ContentManagement.Handlers;
 using Orchard.Localization;
 
 namespace Cascade.ImageResizer.Handlers

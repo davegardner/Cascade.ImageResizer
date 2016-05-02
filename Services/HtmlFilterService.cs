@@ -156,7 +156,7 @@ namespace Cascade.ImageResizer.Services
             if (string.IsNullOrWhiteSpace(path))
                 return match.ToString();
 
-            path = path.ToLower();
+
             var parts = path.Split(new char[] { '?' }, StringSplitOptions.RemoveEmptyEntries);
             string url = parts.Length > 0 ? parts[0] : null;
 
@@ -164,16 +164,16 @@ namespace Cascade.ImageResizer.Services
             if (string.IsNullOrWhiteSpace(url) || url.StartsWith("data:", StringComparison.InvariantCultureIgnoreCase))
                 return match.ToString();
 
-            var ext = Path.GetExtension(path).ToLowerInvariant();
+            var ext = Path.GetExtension(path); //.ToLowerInvariant();
             if (string.IsNullOrWhiteSpace(ext))
                 return match.ToString();
 
             // ignore files according to settings
-            if ((!convertJpeg && (ext == ".jpg" || ext == ".jpeg"))
-                || (!convertTiff && (ext == ".tif" || ext == ".tiff"))
-                || (!convertPng && ext == ".png")
-                || (!convertBmp && ext == ".bmp")
-                || (!convertGif && ext == ".gif")
+            if ((!convertJpeg && (String.Compare(".jpg", ext) == 0 || String.Compare(".jpeg", ext) == 0))
+                || (!convertTiff && (String.Compare(".tif", ext) == 0 || String.Compare(".tiff", ext) == 0))
+                || (!convertPng && String.Compare(".png", ext) == 0)
+                || (!convertBmp && String.Compare(".bmp", ext) == 0)
+                || (!convertGif && String.Compare(".gif", ext) == 0)
                 )
                 return match.ToString();
 
@@ -205,6 +205,15 @@ namespace Cascade.ImageResizer.Services
             if (!components.Any(c => c.StartsWith("format=")) && ext != ".jpg" && ext != ".jpeg")
                 components.Add("format=jpg");
             qs = string.Join("&", components);
+
+            // Azure blob storage strings must be 'redirected' to a relative url for them to be processed by image resizer
+            // assuming resizer is running on the same url as the website
+            if (url.StartsWith("http") && url.Contains("blob.core.windows.net"))
+            {
+                var index = url.IndexOf("//") + 2;
+                index = url.IndexOf('/', index);
+                url = url.Substring(index);
+            }
 
             if (string.IsNullOrWhiteSpace(qs))
                 return " " + attr + "='" + url + "'";
