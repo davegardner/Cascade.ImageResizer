@@ -2,9 +2,9 @@
 AntiForgery: enabled
 Author: Dave Gardner
 Website: http://cascadepixels.com.au
-Version: 1.10
+Version: 1.9.3
 OrchardVersion: 1.10
-Description: Dynamically resizes images using ImageResizer installed as an Http Module. Depends on ImageResizer, which must be installed separately (see http://imageresizing.net/)
+Description: Dynamically resizes images using ImageResizer installed as an Http Module. Depends on ImageResizer, which must be installed separately (see http://imageresizing.net/). Supports Azure blob storage.
 Dependencies: Orchard.Forms, Orchard.MediaProcessing
 Category: Media
 Features:
